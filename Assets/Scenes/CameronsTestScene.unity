@@ -408,7 +408,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 949777503}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: -0.5, z: 0}
   m_LocalScale: {x: 10, y: 10, z: 10}
   m_ConstrainProportionsScale: 1
@@ -541,7 +541,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b31373dcbdd0a0748a2ad89dec75dc4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 1
+  movementSpeed: 3
+  lookSensitivity: 20.87
 --- !u!135 &2131201775
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -698,7 +699,19 @@ MonoBehaviour:
     m_ActionId: 263d4661-04aa-4567-a442-4bce29de2a6d
     m_ActionName: Player/Move[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2131201774}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: Look
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 32d53c8c-2d77-48d5-91d3-8d384840585e
     m_ActionName: Player/Look[/Mouse/delta,/Touchscreen/delta]
   - m_PersistentCalls:
@@ -756,5 +769,5 @@ SceneRoots:
   m_Roots:
   - {fileID: 963194228}
   - {fileID: 705507995}
-  - {fileID: 2131201778}
   - {fileID: 949777507}
+  - {fileID: 2131201778}
