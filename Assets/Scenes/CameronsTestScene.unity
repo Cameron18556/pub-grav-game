@@ -542,7 +542,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementSpeed: 3
-  lookSensitivity: 20.87
+  lookSensitivity: 20
 --- !u!135 &2131201775
 SphereCollider:
   m_ObjectHideFlags: 0
