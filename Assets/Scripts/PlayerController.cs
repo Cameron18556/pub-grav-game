@@ -7,44 +7,54 @@ public class PlayerController : MonoBehaviour
 {
     private Vector2 inputMovementVector;
     private Vector3 inputMovementVector3;
-    private Rigidbody rb;
+
     public float movementSpeed;
-    public float lookSensitivity;
-    // Start is called before the first frame update
-    void Start()
+    public GameObject body;
+    public float gravityForce;
+    public float bootRayDistance = 2;
+
+    private Rigidbody rb;
+
+    private void Start()
     {
+        body = GetComponentInChildren<BodyController>().gameObject;
         rb = GetComponent<Rigidbody>();
     }
 
-    // Update is called once per frame
     void Update()
     {
-        
-        transform.position += transform.forward * inputMovementVector3.z * movementSpeed * Time.deltaTime;
-        transform.position += transform.right * inputMovementVector3.x * movementSpeed * Time.deltaTime;
+
+        //transform.position += body.transform.forward * inputMovementVector3.z * movementSpeed * Time.deltaTime;
+        //transform.position += body.transform.right * inputMovementVector3.x * movementSpeed * Time.deltaTime;
+
+        RaycastHit hit;
+        Ray ray = new Ray(transform.position, -transform.up);
+
+        if(Physics.Raycast(ray, out hit, bootRayDistance))
+        {
+            transform.up = hit.normal;
+        }
+    }
+
+    private void FixedUpdate()
+    {
+        if (rb != null)
+        {
+            //gravity
+            rb.AddForce(-transform.up * gravityForce, ForceMode.Force);
+
+            Vector3 movement = Vector3.zero;
+            movement += body.transform.forward * inputMovementVector3.z * movementSpeed * Time.fixedDeltaTime;
+            movement += body.transform.right * inputMovementVector3.x * movementSpeed * Time.fixedDeltaTime;
+
+            //movement
+            rb.AddForce(movement);
+        }
     }
 
     public void Move(InputAction.CallbackContext context)
     {
         inputMovementVector = context.ReadValue<Vector2>();
         inputMovementVector3 = new Vector3(inputMovementVector.x, 0, inputMovementVector.y);
-    }
-
-    public void Look(InputAction.CallbackContext context)
-    {
-        Vector2 input = context.ReadValue<Vector2>();
-        
-        input *= Time.deltaTime;
-        input *= lookSensitivity;
-        if(input.y < -90)
-        {
-            input.y = -90;
-        }
-        if (input.y > 90)
-        {
-            input.y = 90;
-        }
-
-        transform.localEulerAngles += new Vector3(input.y, -input.x, 0);
     }
 }
